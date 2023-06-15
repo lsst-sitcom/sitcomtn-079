@@ -80,21 +80,29 @@ LUT Improvement Script
 Updating the LUT in cRIO
 ---------------------------------------------
 
-You need to copy the new tables to M1M3 cRIO. 
+You need to copy the new tables to M1M3 cRIO. cRIO address is ``m1m3-crio-ss.cp.lsst.org``, it’s running a modified Linux, so common linux command works.
 
-1. Login 
+.. code-block:: python
 
-   username: ``admin``
+   Login
+   
+   username: admin
+   
+   password: stored in LSST vault.
 
-   password: stored in LSST vault. 
+- Copy files to ``m1m3-crio-ss.cp.lsst.org`` in the directory ``/var/lib/M1M3support/Tables``. Use ``scp`` to copy them. 
 
-2. Copy files to ``m1m3-crio-ss.cp.lsst.org``, in the directory ``/var/lib/M1M3support/Tables``
-   Use ``scp`` to copy them.
-   Save them as ``Elevation{XYZ}Table.csv``, where ``{XYZ}`` shall be replaced with axis of the table modified.
+- Save them as ``Elevation{XYZ}Table.csv``, where ``{XYZ}`` shall be replaced with axis of the table modified. It’s better to scp to tmp directory first, verify that the files arrive properly, and only after that ssh into m1m3-crio-ss and copy the file from ``/tmp`` to ``/var/lib/M1M3support/Tables``:
 
-3. Once done, just cycle M1M3 CSC to standby and bring it back to online. The new table is loaded during start step.
+``scp Elevation*Table.csv admin@m1m3-crio-ss.cp.lsst.org:/tmp``
 
+Then copy the files from ssh:
 
+``ssh admin@m1m3-crio-ss.cp.lsst.org``
+
+``cp /tmp/Elevatoion*Table.csv /var/lib/M1M3support/Tables/``
+
+Once done, just cycle M1M3 CSC to standby and bring it back to online. The new table is loaded during start step.
 
 Test rundown:
 ================
