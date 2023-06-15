@@ -77,7 +77,7 @@ LUT Improvement Script
    python3 M1M3LUT.py 'Balance' '2023-05-31 08:35:0Z' '2023-05-31 09:05:0Z' 'X' --lut_path="path/to/ts_m1m3support/SettingFiles/Tables/"
 
 
-Updating the LUT Serial
+Updating the LUT in cRIO
 ---------------------------------------------
 
 You need to copy the new tables to M1M3 cRIO. 
@@ -105,7 +105,7 @@ Test rundown:
 
 - Run the script to generate a new LUT file for Z, Y and X axis. You will have to run the script three times. You can choose 'Balance' type to start with.
 
-- Update the Serial
+- Update the cRIO
 
 - Cycle M1M3 CSC to standby and bring it back to online. The new table is now loaded during start step.
 
