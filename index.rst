@@ -51,8 +51,7 @@ LUT Improvement Script
 - Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`__
 Do the following
 
-.. prompt:: bash
-
+.. code-block:: bash
    git clone https://github.com/lsst-ts/ts_aos_utils/
 
 - Go to the directory where you cloned the repository and run the script, which is located at ``python/lsst/ts/aos/utils/scripts``
@@ -71,7 +70,7 @@ Do the following
 - You will not have to change the polynomial degree or the resample rate. The default values are 5 and 1T respectively.
 
 - An example below:
-.. prompt:: py
+.. code-block:: py
    python3 M1M3LUT.py 'Balance' '2023-05-31 08:35:0Z' '2023-05-31 09:05:0Z' 'X' --lut_path="path/to/ts_m1m3support/SettingFiles/Tables/"
 
 
