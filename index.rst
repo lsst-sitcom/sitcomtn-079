@@ -89,8 +89,14 @@ TBD by Petr
 
 Test rundown:
 ================
+
 - Find times in EFD data to use for LUT improvement
+
 - Run the script to generate a new LUT file for Z, Y and X axis. You will have to run the script three times. You can choose 'Balance' type to start with.
+
 - Update the Serial
+
 - Do a 0 to 90 deg (or 90deg to 0 deg) sweep again and repeate the previous steps.
+
 - Do this 5 times.
+
