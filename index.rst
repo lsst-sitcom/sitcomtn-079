@@ -54,6 +54,7 @@ LUT Improvement Script
 Do the following
 
 .. code-block:: bash
+
    git clone https://github.com/lsst-ts/ts_aos_utils/
 
 - Go to the directory where you cloned the repository and run the script, which is located at ``python/lsst/ts/aos/utils/scripts``
