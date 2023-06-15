@@ -80,12 +80,26 @@ LUT Improvement Script
 Updating the LUT Serial
 ---------------------------------------------
 
-TBD by Petr
+You need to copy the new tables to M1M3 cRIO. 
+
+1. Login 
+
+   username: ``admin``
+
+   password: stored in LSST vault. 
+
+2. Copy files to ``m1m3-crio-ss.cp.lsst.org``, in the directory ``/var/lib/M1M3support/Tables``
+   Use ``scp`` to copy them.
+   Save them as ``Elevation{XYZ}Table.csv``, where ``{XYZ}`` shall be replaced with axis of the table modified.
+
+3. Once done, just cycle M1M3 CSC to standby and bring it back to online. The new table is loaded during start step.
 
 
 
 Test rundown:
 ================
+
+- Do a 0 to 90 deg with balance forces turned on.
 
 - Find times in EFD data to use for LUT improvement
 
@@ -93,7 +107,9 @@ Test rundown:
 
 - Update the Serial
 
-- Do a 0 to 90 deg (or 90deg to 0 deg) sweep again and repeate the previous steps.
+- Cycle M1M3 CSC to standby and bring it back to online. The new table is now loaded during start step.
+
+- Do a 0 to 90 deg (or 90deg to 0 deg) sweep again and repeat the previous steps.
 
 - Do this 5 times.
 
