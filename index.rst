@@ -27,7 +27,7 @@ You will have to select the times in utc.
 
 Here is an example of how you can query and plot the data to find the elevations
 
-.. prompt:: py
+.. code-block:: py
    start = Time('2023-05-31 08:35:0Z', scale='utc')
    end = Time('2023-05-31 09:05:0Z', scale='utc')
 
@@ -59,8 +59,9 @@ Do the following
 
 - Run the script M1M3LUT.py which will generate a LUT file in the same directory. You can run the script as follows
 
-.. prompt:: py
+.. code-block:: py
    python3 M1M3LUT.py force_type start_time end_time axis --lut_path --polynomial_degree --resample_rate
+
    # axis = ['X', 'Y', 'Z']
    # force_type = ['Balance', 'Applied']
    # --lut_path = path to the LUT file you want to improve
