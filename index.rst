@@ -61,16 +61,15 @@ Do the following
 
 .. prompt:: py
    python3 M1M3LUT.py force_type start_time end_time axis --lut_path --polynomial_degree --resample_rate
-
    # axis = ['X', 'Y', 'Z']
    # force_type = ['Balance', 'Applied']
    # --lut_path = path to the LUT file you want to improve
    # --polynomial_degree = degree of the polynomial you want to fit the data to
    # --resample_rate = resample rate of the data you want to use for the LUT improvement. 
 
-You will not have to change the polynomial degree or the resample rate. The default values are 5 and 1T respectively.
+- You will not have to change the polynomial degree or the resample rate. The default values are 5 and 1T respectively.
 
-An example below:
+- An example below:
 .. prompt:: py
    python3 M1M3LUT.py 'Balance' '2023-05-31 08:35:0Z' '2023-05-31 09:05:0Z' 'X' --lut_path="path/to/ts_m1m3support/SettingFiles/Tables/"
 
