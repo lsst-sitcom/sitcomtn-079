@@ -21,9 +21,7 @@ Instructions:
 
 Find EFD data to use for LUT improvement
 --------------------------------------------
-- Query the EFD to find the start and end time of the data you want to use for LUT improvement. 
-Try to find the exact time where the sweep from 0deg to 90deg (or from 90 deg to 0 deg) started.
-You will have to select the times in utc. 
+- Query the EFD to find the start and end time of the data you want to use for LUT improvement. Try to find the exact time where the sweep from 0deg to 90deg (or from 90 deg to 0 deg) started. You will have to select the times in utc. 
 
 Here is an example of how you can query and plot the data to find the elevations
 
@@ -50,8 +48,7 @@ Once you have chosen the times you want to look at, write them down. You will ne
 LUT Improvement Script
 --------------------------------------------
 
-- Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`__
-Do the following
+- Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`__ Do the following
 
 .. code-block:: bash
 
