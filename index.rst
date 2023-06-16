@@ -14,7 +14,11 @@ Instructions and results.
 Introduction and Motivation:
 ================================
 
+In this approach we will iteratively improve the LUT. There are two approaches we can follow 'Applied' and 'Balance' approaches. We will mainly stick with 'Balance' but below you see both approaches explanation
 
+- **Balance**: In this approach we fit the balance forces offsets from the hardpoint correction system with a 5th order polynomial. We add these coefficients to the existing LUT and generate a new csv with the new LUT. The CSV is created at the folder where you have the script.
+
+- **Applied**: We look at the Applied forces - Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
 
 Instructions:
 ================
@@ -88,7 +92,7 @@ You need to copy the new tables to M1M3 cRIO. cRIO address is ``m1m3-crio-ss.cp.
    
    username: admin
    
-   password: stored in LSST vault.
+   password: stored in LSST maintel vault in 1password
 
 - Copy files to ``m1m3-crio-ss.cp.lsst.org`` in the directory ``/var/lib/M1M3support/Tables``. Use ``scp`` to copy them. 
 
@@ -107,6 +111,8 @@ Once done, just cycle M1M3 CSC to standby and bring it back to online. The new t
 Test rundown:
 ================
 
+- Hardpoint corrections should be ``ON``
+
 - Do a 0 to 90 deg with balance forces turned on.
 
 - Find times in EFD data to use for LUT improvement
@@ -117,7 +123,7 @@ Test rundown:
 
 - Cycle M1M3 CSC to standby and bring it back to online. The new table is now loaded during start step.
 
-- Do a 0 to 90 deg (or 90deg to 0 deg) sweep again and repeat the previous steps.
+- Do a 0 to 90 deg (or 90deg to 0 deg) sweep again and repeat the previous steps. Remember that when you run the LUT script, you will have to update the lut_path to point at your previous LUT file.
 
 - Do this 5 times.
 
