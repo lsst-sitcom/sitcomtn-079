@@ -20,6 +20,8 @@ In this approach we will iteratively improve the LUT. There are two approaches w
 
 - **Applied**: We look at the Applied forces - Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
 
+Note to the reader: when we say 90 - 0 deg we generally refer to 86 deg - 16 deg, the operational range of our telescope.
+
 
 Fitting Balance Forces vs Fitting Applied Forces:
 ================================================================
@@ -76,13 +78,37 @@ Iteration 1 Balance Forces fit
 .. figure:: /_static/balance_fits_it1.png
    :name: balance-it1-fits
 
+LUT Iterative Improvement - Second LUT iterative update:
+================================================================
+
+But, does it make sense to go with the first fit we get from the data? Are the balance forces that we are observing due to a systematic error that we can bring into the LUT or are they at this point just the corrections that the LUT cannot pick up and needs to fall back onto the force balance corrections? 
+
+A simple check is to see what are the force balance corrections at another slew from 16 to 86 deg or viceversa, and see if the offsets that we observe are consistent. Below we show the results in Z direction for 16 to 86 deg and from 86 to 16 deg. 
+
+From 86 deg to 16 deg.
+
+.. figure:: /_static/balance_z_comparison.png
+   :name: balance-z-comparison
+
+From 16 deg to 86 deg.
+
+.. figure:: /_static/balance_z_comparison_reverse.png
+   :name: balance-z-comparison-reverse
+
+
+We see that the force balance offsets do not agree on both slews, even though we have the same LUT. This may indicate that we have reached the point in which the LUT cannot be improved further. A wise approach to determine whether this is true or not would be to gather data from multiple slews and plot the force balance mean, median and standard deviation as a function of the zenith angle, to see if there is any systematic error that we can further bring in into the LUT.
+
+
+
 
 LUT Iterative Improvement - Tracking coefficient change:
 ================================================================
 
 At this point, we want to make sure that the coefficient changes that we are applying to the different LUT are getting smaller. We expect the percentage changes to the LUT to decrease at each iteration. We can plot now the results of the percentage change from the previous LUT for the first improvement (iteration 1) and for the second improvement (iteration 2). The second improvement refers to the new fit we got from the balance forces after updating the LUT once. Note that this LUT iteration 2 has not been implemented yet in the system.
 
-We will look at the absolute percentage change for each of the coefficients in the Z direction:
+We will look at the absolute percentage change for each of the coefficients in the Z direction.
+
+[PLOTS NOT SHOWN HERE PENDING DECISION ON SECOND LUT UPDATE]
 
 
 
