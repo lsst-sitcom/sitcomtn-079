@@ -20,8 +20,9 @@ In this approach we will iteratively improve the LUT. There are two approaches w
 
 - **Applied**: We look at the Applied forces - Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
 
+
 Fitting Balance Forces vs Fitting Applied Forces:
-================
+================================================================
 
 We start by showing that we can use either approach to generate the updated LUT. When looking at the data retrieved on `2023-05-31` from `08:35 UTC` to `09:05 UTC`, with hardpoint corrections enabled (that is, the balance force system). Below is a plot of the two fits that are done to generate the updated LUT:
 
@@ -32,20 +33,58 @@ We start by showing that we can use either approach to generate the updated LUT.
 
 - Applied Forces
 
-.. figure:: /_static/applied_fits.jpg
+.. figure:: /_static/applied_fits.png
    :name: applied-approach-fits
 
 The final LUT for the balance force approach is,
 
-.. figure:: /_static/balance_table.jpg
+.. figure:: /_static/balance_table.png
    :name: balance-approach-table
 
 Which is approximately the same as the one obtained when using the applied forces approach (See below)
 
-.. figure:: /_static/applied_table.jpg
+.. figure:: /_static/applied_table.png
    :name: applied-approach-table
 
 Now that we have shown that both approaches work, we will choose the "Balance force approach" as our baseline and will study the balance forces evolution ss we iteratively update the LUT. 
+
+
+LUT Iterative Improvement Results:
+================================================
+
+Now we want to look at the evolution of the Balance forces offsets after updating the LUT using the fits discussed in the previous section. We see that the balance forces offsets are reduced by an order of magnitude (to around 0.1 N) after the first LUT improvement iteration. 
+
+Z axis balance forces comparison
+
+.. figure:: /_static/balance_z_comparison.png
+   :name: balance-z-comparison
+
+Y axis balance forces comparison
+
+.. figure:: /_static/balance_y_comparison.png
+   :name: balance-y-comparison
+
+This indicates that our iterative improvement worked in the first iteration. Now we will fit these balance forces again and update the LUT for the second iteration. We are interested in getting to a point in which the balance forces don't reduce much further. Below are the plots of the fits used for the original balance forces and for the balance forces observed after the first LUT improvement iteration. 
+
+Iteration 0 (original) Balance Forces fit
+
+.. figure:: /_static/balance_fits_it0.png
+   :name: balance-it0-fits
+
+Iteration 1 Balance Forces fit
+
+.. figure:: /_static/balance_fits_it1.png
+   :name: balance-it1-fits
+
+
+LUT Iterative Improvement - Tracking coefficient change:
+================================================================
+
+At this point, we want to make sure that the coefficient changes that we are applying to the different LUT are getting smaller. We expect the percentage changes to the LUT to decrease at each iteration. We can plot now the results of the percentage change from the previous LUT for the first improvement (iteration 1) and for the second improvement (iteration 2). The second improvement refers to the new fit we got from the balance forces after updating the LUT once. Note that this LUT iteration 2 has not been implemented yet in the system.
+
+We will look at the absolute percentage change for each of the coefficients in the Z direction:
+
+
 
 Instructions:
 ================
