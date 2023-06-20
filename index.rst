@@ -112,8 +112,8 @@ We will look at the absolute percentage change for each of the coefficients in t
 
 
 
-Instructions:
-================
+Instructions (outdated):
+==================================
 
 Find EFD data to use for LUT improvement
 --------------------------------------------
