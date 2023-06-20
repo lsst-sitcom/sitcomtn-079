@@ -88,7 +88,7 @@ A simple check is to see what are the force balance corrections at another slew 
 From 86 deg to 16 deg.
 
 .. figure:: /_static/balance_z_comparison.png
-   :name: balance-z-comparison
+   :name: balance-z-comparison-2
 
 From 16 deg to 86 deg.
 
