@@ -20,6 +20,33 @@ In this approach we will iteratively improve the LUT. There are two approaches w
 
 - **Applied**: We look at the Applied forces - Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
 
+Fitting Balance Forces vs Fitting Applied Forces:
+================
+
+We start by showing that we can use either approach to generate the updated LUT. When looking at the data retrieved on `2023-05-31` from `08:35 UTC` to `09:05 UTC`, with hardpoint corrections enabled (that is, the balance force system). Below is a plot of the two fits that are done to generate the updated LUT:
+
+- Balance forces 
+
+.. figure:: /_static/balance_fits.png
+   :name: balance-approach-fits
+
+- Applied Forces
+
+.. figure:: /_static/applied_fits.jpg
+   :name: applied-approach-fits
+
+The final LUT for the balance force approach is,
+
+.. figure:: /_static/balance_table.jpg
+   :name: balance-approach-table
+
+Which is approximately the same as the one obtained when using the applied forces approach (See below)
+
+.. figure:: /_static/applied_table.jpg
+   :name: applied-approach-table
+
+Now that we have shown that both approaches work, we will choose the "Balance force approach" as our baseline and will study the balance forces evolution ss we iteratively update the LUT. 
+
 Instructions:
 ================
 
