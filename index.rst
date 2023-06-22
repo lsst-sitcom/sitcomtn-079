@@ -196,7 +196,7 @@ Then copy the files from ssh:
 
 ``ssh admin@m1m3-crio-ss.cp.lsst.org``
 
-``cp /tmp/Elevatoion*Table.csv /var/lib/M1M3support/Tables/``
+``cp /tmp/Elevatoion*Table.csv /var/lib/M1M3support/v1/tables/``
 
 Once done, just cycle M1M3 CSC to standby and bring it back to online. The new table is loaded during start step.
 
