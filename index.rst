@@ -119,8 +119,7 @@ Once you have chosen the times you want to look at, write them down. You will ne
 LUT Improvement Script
 --------------------------------------------
 
-- Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`
-Do the following
+- Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`. Do the following
 
 .. code-block:: bash
 
