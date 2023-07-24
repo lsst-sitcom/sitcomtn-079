@@ -57,12 +57,17 @@ Now that we have shown that both approaches work, we will choose the "Balance fo
 LUT Iterative Improvement Results
 ================================================
 
-Now we want to look at the evolution of the Balance forces offsets after updating the LUT using the fits discussed in the previous section. In the plots below we see the change in the measured Hardpoint forces for five different iterations of the LUT. Note, that some of the iterations are missing because initially we didn't perform slews with the force balance system turned off, which allows us to quantify how much better is the LUT.
+Now we want to look at the evolution of the Balance forces offsets after updating the LUT using the fits discussed in the previous section. In the plots below we see the change in the measured Hardpoint forces for five different iterations of the LUT. Note, that some of the iterations are missing because initially, we didn't perform slews with the force balance system turned off, which allows us to quantify how much better is the LUT.
 
-.. figure:: /_static/iterations_hardpoint.png
-   :name: applied-approach-table
+.. figure:: /_static/hp_iters1.png
+   :name: hp_iters1
 
+.. figure:: /_static/hp_iters2.png
+   :name: hp_iters2
 
+Before coming to any conclusions, it should be mentioned that the hysteresis of the system was not considered until iteration 6, hence up until then, the updates that were being performed failed to correct for the mean of the hysteresis loop and were instead being applied to only one of the slews. 
+
+We see that in the last two iterations, the hardpoint correction forces improved considerably. Let us recall that the "Rule of Thumb" for an open loop cell system is that we should expect about 1/1000 correction. Our mirror weighs 170,000 N. We should expect to get within 170N. It looks like we are within this range. If you actually RSS all the errors you get a much lower number, around 30 N per hardpoint. In light of these facts, the results of iteration 7 seem satisfactory.
 
 
 Can we do any better?
