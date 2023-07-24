@@ -79,8 +79,10 @@ The remaining last step on this iterative improvement approach that we hope to f
 
 Key considerations
 ================================================
-- When evaluating the LUT, it is important to perform slews with the force balance system turned on and turned off. When turned off, the hardpoint measured forces give us an idea of how much did we improve the LUT, while when turned on it allows us to gather data to improve the LUT again. 
-- The polynomial fit should be done over a full slew (0 - 90 - 0 degrees) so that we account for the hysteresis of the system. 
+
+- When evaluating the LUT, it is important to perform slews with the force balance system turned on and turned off. When turned off, the hardpoint measured forces give us an idea of how much did we improve the LUT, while when turned on it allows us to gather data to improve the LUT again.
+
+- The polynomial fit should be done over a full slew (0 - 90 - 0 degrees) so that we account for the hysteresis of the system.
 
 
 
