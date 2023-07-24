@@ -152,7 +152,7 @@ Create a branch in the ts_config_mttcs repository and push your changes. You wil
 Updating the LUT in cRIO
 ---------------------------------------------
 
-Once the changes are approved into ts_config_mttcs, these changes need to be pulled into cRIO. The cRIO address is ``m1m3-crio-ss.cp.lsst.org``.
+Once the changes are approved into ts_config_mttcs, these changes need to be pulled into cRIO.
 
 Ask for support from the appropriate personnel (Tiago / Petr) that will help update the LUT file, pulling it into cRIO and then cycling the M1M3 CSC to standby and bringing it back online. The new table will then be loaded during the start step.
 
