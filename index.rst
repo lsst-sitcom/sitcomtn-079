@@ -147,34 +147,14 @@ LUT Improvement Script
 
    python3 m1m3_lut.py 'Applied' '2023-05-31 08:35:0Z' '2023-05-31 09:05:0Z' 'XYZ'
 
+Create a branch in the ts_config_mttcs repository and push your changes. You will have to ask the appropriate personnel for approval.
 
 Updating the LUT in cRIO
 ---------------------------------------------
 
-You need to copy the new tables to M1M3 cRIO. cRIO address is ``m1m3-crio-ss.cp.lsst.org``, it’s running a modified Linux, so common linux command works.
+Once the changes are approved into ts_config_mttcs, these changes need to be pulled into cRIO. The cRIO address is ``m1m3-crio-ss.cp.lsst.org``.
 
-.. code-block:: python
-
-   Login
-   
-   username: admin
-   
-   password: stored in LSST maintel vault in 1password
-
-- Copy files to ``m1m3-crio-ss.cp.lsst.org`` in the directory ``/var/lib/M1M3support/Tables``. Use ``scp`` to copy them. 
-
-- Save them as ``Elevation{XYZ}Table.csv``, where ``{XYZ}`` shall be replaced with axis of the table modified. It’s better to scp to tmp directory first, verify that the files arrive properly, and only after that ssh into m1m3-crio-ss and copy the file from ``/tmp`` to ``/var/lib/M1M3support/Tables``:
-
-``scp Elevation*Table.csv admin@m1m3-crio-ss.cp.lsst.org:/tmp``
-
-Then copy the files from ssh:
-
-``ssh admin@m1m3-crio-ss.cp.lsst.org``
-
-``cp /tmp/Elevatoion*Table.csv /var/lib/M1M3support/v1/tables/``
-
-Once done, just cycle M1M3 CSC to standby and bring it back to online. The new table is loaded during start step.
-
+Ask for support from the appropriate personnel (Tiago / Petr) that will help update the LUT file, pulling it into cRIO and then cycling the M1M3 CSC to standby and bringing it back online. The new table will then be loaded during the start step.
 
 
 Test rundown:
