@@ -7,23 +7,26 @@
 Abstract
 ========================
 
-Iterative improvement of LUT through balance forces. 
-Instructions and results.
+This technote summarizes the improvement procedure and results used to update the Look-Up Table (LUT) of M1M3 during the first static and semi-dynamic tests. Here, we describe the basis of the iterative improvement, how it was actually implemented, and report the overall results of the improvement procedure. Additionally, we also provide instructions on how to run the iterative improvement scripts.
 
 
-Introduction and Motivation:
+Introduction and Motivation
 ================================
 
-In this approach we will iteratively improve the LUT. There are two approaches we can follow 'Applied' and 'Balance' approaches. We will mainly stick with 'Balance' but below you see both approaches explanation
+Let us first recall what the force balance offsets come from. The Force Balance offsets are determined through the forces measured in the load cells in the mirror's position defining units (hard points). These are the net forces/moment in the six degrees of freedom resulting from the imbalance between the LUT forces and the forces acting on the mirror. These forces are counteracted by distributing forces through the figure control actuators which are applied to the LUT values as FB offsets. Since the new FB offsets are determined in the presence of existing FB offset, the new FB offsets must be combined with the previous FB offsets. Since the system is deterministic, the Force Balance offset will likely be a simple linear addition. 
 
-- **Balance**: In this approach we fit the balance forces offsets from the hardpoint correction system with a 5th order polynomial. We add these coefficients to the existing LUT and generate a new csv with the new LUT. The CSV is created at the folder where you have the script.
+The assumption that let us improve the initial LUT is that a fraction of the balance forces offsets that was being applied to correct for the harpoint actuator measurements was a fixed offset that could be injected into the LUT. Therefore, the iterative improvement of the LUT can be performed through two different approaches, which we will call 'Applied forces' and 'Balance forces' approaches.
 
-- **Applied**: We look at the Applied forces - Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
+- **Balance forces**: In this approach, we fit the balance forces offsets from the hardpoint correction system with a 5th-order polynomial. We add these coefficients to the existing LUT and generate a new .csv file with the new LUT. The CSV is created in the folder where you have the script.
 
-Note to the reader: when we say 90 - 0 deg we generally refer to 86 deg - 16 deg, the operational range of our telescope.
+- **Applied forces**: We look at the Applied forces minus the Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
+
+After experimenting with both approaches, we found that the Applied forces approach is preferrable because it does not rely on previous LUT files. However, below we show how both approaches should give very similar results.
+
+Another aspect to be considered is the hysteresis present in the system. Since we can't correct for the hysteresis the updates that will be performed come from fitting the applied forces when doing a complete sweep of elevation angles, that is, from 0 degrees to 90 degrees and back to 0 degrees.
 
 
-Fitting Balance Forces vs Fitting Applied Forces:
+Fitting Balance Forces vs Fitting Applied Forces
 ================================================================
 
 We start by showing that we can use either approach to generate the updated LUT. When looking at the data retrieved on `2023-05-31` from `08:35 UTC` to `09:05 UTC`, with hardpoint corrections enabled (that is, the balance force system). Below is a plot of the two fits that are done to generate the updated LUT:
@@ -51,75 +54,47 @@ Which is approximately the same as the one obtained when using the applied force
 Now that we have shown that both approaches work, we will choose the "Balance force approach" as our baseline and will study the balance forces evolution ss we iteratively update the LUT. 
 
 
-LUT Iterative Improvement Results:
+LUT Iterative Improvement Results
 ================================================
 
-Now we want to look at the evolution of the Balance forces offsets after updating the LUT using the fits discussed in the previous section. We see that the balance forces offsets are reduced by an order of magnitude (to around 0.1 N) after the first LUT improvement iteration. 
+Now we want to look at the evolution of the Balance forces offsets after updating the LUT using the fits discussed in the previous section. In the plots below we see the change in the measured Hardpoint forces for five different iterations of the LUT. Note, that some of the iterations are missing because initially, we didn't perform slews with the force balance system turned off, which allows us to quantify how much better is the LUT.
 
-Z axis balance forces comparison
+.. figure:: /_static/hp_iters2.png
+   :name: hp_iters2
 
-.. figure:: /_static/balance_z_comparison.png
-   :name: balance-z-comparison
+.. figure:: /_static/hp_iters1.png
+   :name: hp_iters1
 
-Y axis balance forces comparison
+Before coming to any conclusions, it should be mentioned that the hysteresis of the system was not considered until iteration 6, hence up until then, the updates that were being performed failed to correct for the mean of the hysteresis loop and were instead being applied to only one of the slews. 
 
-.. figure:: /_static/balance_y_comparison.png
-   :name: balance-y-comparison
-
-This indicates that our iterative improvement worked in the first iteration. Now we will fit these balance forces again and update the LUT for the second iteration. We are interested in getting to a point in which the balance forces don't reduce much further. Below are the plots of the fits used for the original balance forces and for the balance forces observed after the first LUT improvement iteration. 
-
-Iteration 0 (original) Balance Forces fit
-
-.. figure:: /_static/balance_fits_it0.png
-   :name: balance-it0-fits
-
-Iteration 1 Balance Forces fit
-
-.. figure:: /_static/balance_fits_it1.png
-   :name: balance-it1-fits
-
-LUT Iterative Improvement - Second LUT iterative update:
-================================================================
-
-But, does it make sense to go with the first fit we get from the data? Are the balance forces that we are observing due to a systematic error that we can bring into the LUT or are they at this point just the corrections that the LUT cannot pick up and needs to fall back onto the force balance corrections? 
-
-A simple check is to see what are the force balance corrections at another slew from 16 to 86 deg or viceversa, and see if the offsets that we observe are consistent. Below we show the results in Z direction for 16 to 86 deg and from 86 to 16 deg. 
-
-From 86 deg to 16 deg.
-
-.. figure:: /_static/balance_z_comparison.png
-   :name: balance-z-comparison-2
-
-From 16 deg to 86 deg.
-
-.. figure:: /_static/balance_z_comparison_reverse.png
-   :name: balance-z-comparison-reverse
+We see that in the last two iterations, the hardpoint correction forces improved considerably. Let us recall that the "Rule of Thumb" for an open loop cell system is that we should expect about 1/1000 correction. Our mirror weighs 170,000 N. We should expect to get within 170N. It looks like we are within this range. If you actually RSS all the errors you get a much lower number, around 30 N per hardpoint. In light of these facts, the results of iteration 7 seem satisfactory.
 
 
-We see that the force balance offsets do not agree on both slews, even though we have the same LUT. This may indicate that we have reached the point in which the LUT cannot be improved further. A wise approach to determine whether this is true or not would be to gather data from multiple slews and plot the force balance mean, median and standard deviation as a function of the zenith angle, to see if there is any systematic error that we can further bring in into the LUT.
+Can we do any better?
+================================================
+
+The remaining last step on this iterative improvement approach that we hope to finalize soon, is to run a couple more improvement iterations and validate that we have effectively converged and that the hardpoint measured forces remain close to the current values.
+
+
+
+Key considerations
+================================================
+
+- When evaluating the LUT, it is important to perform slews with the force balance system turned on and turned off. When turned off, the hardpoint measured forces give us an idea of how much did we improve the LUT, while when turned on it allows us to gather data to improve the LUT again.
+
+- The polynomial fit should be done over a full slew (0 - 90 - 0 degrees) so that we account for the hysteresis of the system.
 
 
 
 
-LUT Iterative Improvement - Tracking coefficient change:
-================================================================
-
-At this point, we want to make sure that the coefficient changes that we are applying to the different LUT are getting smaller. We expect the percentage changes to the LUT to decrease at each iteration. We can plot now the results of the percentage change from the previous LUT for the first improvement (iteration 1) and for the second improvement (iteration 2). The second improvement refers to the new fit we got from the balance forces after updating the LUT once. Note that this LUT iteration 2 has not been implemented yet in the system.
-
-We will look at the absolute percentage change for each of the coefficients in the Z direction.
-
-[PLOTS NOT SHOWN HERE PENDING DECISION ON SECOND LUT UPDATE]
-
-
-
-Instructions (outdated):
+Instructions to update the LUT
 ==================================
 
 Find EFD data to use for LUT improvement
 --------------------------------------------
-- Query the EFD to find the start and end time of the data you want to use for LUT improvement. Try to find the exact time where the sweep from 0deg to 90deg (or from 90 deg to 0 deg) started. You will have to select the times in utc. 
+- Identify the Observation Block to be used for updating the LUT. Retrieve its start and end time.
 
-Here is an example of how you can query and plot the data to find the elevations
+Here is an example of how you can query and plot the data to find the elevations, in case you want to do it manually
 
 .. code-block:: python
 
@@ -144,7 +119,7 @@ Once you have chosen the times you want to look at, write them down. You will ne
 LUT Improvement Script
 --------------------------------------------
 
-- Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`__ Do the following
+- Clone the ts_aos_utils repository that you can find `here <https://github.com/lsst-ts/ts_aos_utils/>`. Do the following
 
 .. code-block:: bash
 
@@ -152,15 +127,15 @@ LUT Improvement Script
 
 - Go to the directory where you cloned the repository and run the script, which is located at ``python/lsst/ts/aos/utils/scripts``
 
-- Run the script M1M3LUT.py which will generate a LUT file in the same directory. You can run the script as follows
+- Run the script m1m3_lut.py which will generate a LUT file in the same directory. You can run the script as follows
 
 .. code-block:: python
 
    python3 M1M3LUT.py force_type start_time end_time axis --lut_path --polynomial_degree --resample_rate
 
-   # axis = ['X', 'Y', 'Z']
+   # axis = ['X', 'Y', 'Z', 'XZ', 'XY', 'YZ', 'XYZ']
    # force_type = ['Balance', 'Applied']
-   # --lut_path = path to the LUT file you want to improve
+   # --lut_path = path to the LUT file you want to improve, only needed if Balance approach is used
    # --polynomial_degree = degree of the polynomial you want to fit the data to
    # --resample_rate = resample rate of the data you want to use for the LUT improvement. 
 
@@ -170,52 +145,36 @@ LUT Improvement Script
 
 .. code-block:: python
 
-   python3 M1M3LUT.py 'Balance' '2023-05-31 08:35:0Z' '2023-05-31 09:05:0Z' 'X' --lut_path="path/to/ts_m1m3support/SettingFiles/Tables/"
+   python3 m1m3_lut.py 'Applied' '2023-05-31 08:35:0Z' '2023-05-31 09:05:0Z' 'XYZ'
 
+Create a branch in the ts_config_mttcs repository and push your changes. You will have to ask the appropriate personnel for approval.
 
 Updating the LUT in cRIO
 ---------------------------------------------
 
-You need to copy the new tables to M1M3 cRIO. cRIO address is ``m1m3-crio-ss.cp.lsst.org``, it’s running a modified Linux, so common linux command works.
+Once the changes are approved into ts_config_mttcs, these changes need to be pulled into cRIO.
 
-.. code-block:: python
+Ask for support from the appropriate personnel (Tiago / Petr) that will help update the LUT file, pulling it into cRIO and then cycling the M1M3 CSC to standby and bringing it back online. The new table will then be loaded during the start step.
 
-   Login
-   
-   username: admin
-   
-   password: stored in LSST maintel vault in 1password
-
-- Copy files to ``m1m3-crio-ss.cp.lsst.org`` in the directory ``/var/lib/M1M3support/Tables``. Use ``scp`` to copy them. 
-
-- Save them as ``Elevation{XYZ}Table.csv``, where ``{XYZ}`` shall be replaced with axis of the table modified. It’s better to scp to tmp directory first, verify that the files arrive properly, and only after that ssh into m1m3-crio-ss and copy the file from ``/tmp`` to ``/var/lib/M1M3support/Tables``:
-
-``scp Elevation*Table.csv admin@m1m3-crio-ss.cp.lsst.org:/tmp``
-
-Then copy the files from ssh:
-
-``ssh admin@m1m3-crio-ss.cp.lsst.org``
-
-``cp /tmp/Elevatoion*Table.csv /var/lib/M1M3support/v1/tables/``
-
-Once done, just cycle M1M3 CSC to standby and bring it back to online. The new table is loaded during start step.
 
 Test rundown:
 ================
 
+(1) LUT Evaluation
+
+- Hardpoint corrections should be ``OFF``
+
+- Do a 0 to 90 to 0 deg sweep.
+
+(2) LUT Improvement
+
 - Hardpoint corrections should be ``ON``
 
-- Do a 0 to 90 deg with balance forces turned on.
+- Find times of the Observation Block in EFD data to use for LUT improvement
 
-- Find times in EFD data to use for LUT improvement
-
-- Run the script to generate a new LUT file for Z, Y and X axis. You will have to run the script three times. You can choose 'Balance' type to start with.
+- Run the script to generate a new LUT file for Z, Y and X axis. You can choose 'Applied' approach to start with.
 
 - Update the cRIO
 
 - Cycle M1M3 CSC to standby and bring it back to online. The new table is now loaded during start step.
-
-- Do a 0 to 90 deg (or 90deg to 0 deg) sweep again and repeat the previous steps. Remember that when you run the LUT script, you will have to update the lut_path to point at your previous LUT file.
-
-- Do this 5 times.
 
