@@ -13,13 +13,13 @@ This technote summarizes the improvement procedure and results used to update th
 Introduction and Motivation
 ================================
 
-Let us first recall what the force balance offsets come from. The Force Balance offsets are determined through the forces measured in the load cells in the mirror's position defining units (hard points). These are the net forces/moment in the six degrees of freedom resulting from the imbalance between the LUT forces and the forces acting on the mirror. These forces are counteracted by distributing forces through the figure control actuators which are applied to the LUT values as FB offsets. Since the new FB offsets are determined in the presence of existing FB offset, the new FB offsets must be combined with the previous FB offsets. Since the system is deterministic, the Force Balance offset will likely be a simple linear addition. 
+Let us first recall what the force balance (FB) offsets come from. The force balance offsets are determined through the forces measured in the load cells in the mirror's position defining units (hardpoints). These are the net forces/moments in the six degrees of freedom resulting from the imbalance between the LUT forces and the forces acting on the mirror. These forces are counteracted by distributing forces through the axial actuators controlling the figure which are applied to the LUT values as FB offsets. Since the new FB offsets are determined in the presence of existing FB offset, the new FB offsets must be combined with the previous FB offsets. Since the system is deterministic, the FB offset will likely be a simple linear addition.
 
 The assumption that let us improve the initial LUT is that a fraction of the balance forces offsets that was being applied to correct for the harpoint actuator measurements was a fixed offset that could be injected into the LUT. Therefore, the iterative improvement of the LUT can be performed through two different approaches, which we will call 'Applied forces' and 'Balance forces' approaches.
 
-- **Balance forces**: In this approach, we fit the balance forces offsets from the hardpoint correction system with a 5th-order polynomial. We add these coefficients to the existing LUT and generate a new .csv file with the new LUT. The CSV is created in the folder where you have the script.
+- **Balance forces**: In this approach, we fit the FB offsets from the hardpoint correction system with a 5th-order polynomial. We add these coefficients to the existing LUT and generate a new .csv file with the new LUT. The CSV is created in the folder where you have the Python script.
 
-- **Applied forces**: We look at the Applied forces minus the Static forces, which is equal to the LUT + Balance forces offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT. 
+- **Applied forces**: We look at the applied forces minus the static forces, which is equal to the LUT + FB offsets. We make a fit on these and create a new LUT file, writing from scratch, without relying on the previous LUT.
 
 After experimenting with both approaches, we found that the Applied forces approach is preferrable because it does not rely on previous LUT files. However, below we show how both approaches should give very similar results.
 
