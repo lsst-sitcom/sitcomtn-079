@@ -1,0 +1,22 @@
+[technote]
+id = "SITCOMTN-079"
+series_id = "SITCOMTN"
+canonical_url = "https://sitcomtn-079.lsst.io/"
+github_url = "https://github.com/lsst-sitcom/sitcomtn-079"
+github_default_branch = "main"
+organization.name = "Vera C. Rubin Observatory"
+organization.ror = "https://ror.org/048g3cy84"
+license.id = "CC-BY-4.0"
+[[technote.authors]]
+name = {given = "Guillem", family = "Megias Homar"}
+internal_id = "megiasg"
+orcid = "https://orcid.org/0000-0001-6013-1131"
+[[technote.authors.affiliations]]
+name = "Department of Aeronautics and Astronautics"
+internal_id = "Stanford-AeroAstro"
+address = "Stanford University, Stanford, CA 94305, USA"
+
+[[technote.authors.affiliations]]
+name = "Kavli Institute for Particle Astrophysics and Cosmology"
+internal_id = "SLAC-Kavli"
+address = "SLAC National Accelerator Laboratory, Stanford University, Stanford, CA 94025, USA"

@@ -1,6 +1,12 @@
-:tocdepth: 1
+###################################################
+Iterative improvement of LUT through balance forces
+###################################################
 
-.. sectnum::
+.. abstract::
+
+   Iterative improvement of LUT through balance forces. Instructions and results.
+
+
 
 .. Metadata such as the title, authors, and description are set in metadata.yaml
 
@@ -177,4 +183,3 @@ Test rundown:
 - Update the cRIO
 
 - Cycle M1M3 CSC to standby and bring it back to online. The new table is now loaded during start step.
-
